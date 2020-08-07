@@ -1,0 +1,70 @@
+<app-header> </app-header>
+<app-loader [loading]="loading"></app-loader>
+<div class="container-fluid mt-5">
+  <div class="dbxl-font d-flex justify-content-center">
+    Please fill the details
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-center my-5">
+        <form
+          [formGroup]="meetingForm"
+          (ngSubmit)="onSubmit(meetingForm)"
+          class="col-6"
+        >
+          <div class="form-row">
+            <div class="form-group col-9">
+              <label for="name" class="xl-font">Full Name</label>
+              <span class="required"></span>
+              <input
+                id="name"
+                formControlName="name"
+                class="form-control"
+                type="text"
+                placeholder="Enter your Full Name"
+              />
+            </div>
+          </div>
+          <div class="form-row pl-1">
+            <div class="form-group">
+              <label for="name" class="xl-font pl-1">Date</label>
+              <span class="required"></span>
+              <p-calendar
+                styleClass="d-flex"
+                selectionMode="range"
+                formControlName="date"
+                [showIcon]="true"
+                showTime="true"
+                hourFormat="12"
+                placeholder="Enter the Date"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-9">
+              <label for="name" class="xl-font">Address</label>
+              <span class="required"></span>
+
+              <input
+                id="address"
+                formControlName="address"
+                class="form-control"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="mt-4">
+            <button
+              class="btn btn-blue"
+              [disabled]="meetingForm.invalid"
+              type="submit"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

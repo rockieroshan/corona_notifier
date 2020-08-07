@@ -1,0 +1,60 @@
+<app-header> </app-header>
+<app-loader [loading]="loading"></app-loader>
+<div class="container-fluid mt-5">
+  <p-table
+    #dt
+    [columns]="cols"
+    [value]="formData"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header">
+        Member details
+        <span class="p-input-icon-left">
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Global Search"
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"
+          [pSortableColumn]="col.header === 'Address' ? col.field : ''"
+        >
+          <p-sortIcon
+            *ngIf="col.header === 'Address'"
+            [field]="col.field"
+          ></p-sortIcon>
+          {{ col.header }}
+          <span *ngIf="col.header === 'Name' || col.header === 'Date'">
+            <p-multiSelect
+              [options]="col.header === 'Name' ? names : dates"
+              defaultLabel="Group By the given values"
+              (onChange)="dt.filter($event.value, col.field, 'in')"
+            ></p-multiSelect>
+          </span>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td
+          *ngFor="let col of columns"
+          pTooltip="{{ rowData[col.field] }}"
+          tooltipPosition="top"
+        >
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<app-footer></app-footer>
